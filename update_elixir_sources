@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+function pull_source_repo() {
+  cd $forks_path
+  cd ${!1}
+  echo ""
+  echo "*************************** UPDATING ${!1} *******************************"
+  echo ""
+  git pull origin master
+}
+
+for phoenix_dep in $(find $forks_path -type d -maxdepth 1 -name "phoenix*")
+do
+  pull_source_repo phoenix_dep
+done
+
+elixir_repo="elixir"
+pull_source_repo elixir_repo
+kiex install mine
+kiex use mine
+
+cd -
